@@ -7,9 +7,9 @@
   const PROSE_FILE = /\.(md|mdx|markdown|txt|rst|adoc|csv|tsv)$/i;
   // Used only when GitHub did not syntax-highlight the line (big or unknown files).
   const FALLBACK_COMMENT = /^(\/\/|\/\*|\{\/\*|\*\/|\*(\s|$)|<!--|-->|#(\s|$)|--\s|;;|%\s|rem\s)/i;
-  const COMMENT_MARK = '';
+  const COMMENT_MARK = '\u0001';
   // Only comment markers, optionally wrapped in a JSX `{` and/or `}`.
-  const JSX_WRAPPED = /^(\{)?+(\})?$/;
+  const JSX_WRAPPED = /^(\{)?\u0001+(\})?$/;
 
   let enabled = false;
   let applying = false;

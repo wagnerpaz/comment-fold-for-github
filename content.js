@@ -2,7 +2,8 @@
   const STORAGE_KEY = 'gccEnabled';
   const HIDDEN = 'gcc-hidden';
   const PLACEHOLDER = 'gcc-placeholder';
-  const DIFF_PAGE = /^\/[^/]+\/[^/]+\/(pull\/\d+|commit\/|compare\/)/;
+  // PR "Files changed" (classic /files, new /changes, single commit /commits/sha), commit and compare pages.
+  const DIFF_PAGE = /^\/[^/]+\/[^/]+\/(pull\/\d+\/(files|changes|commits\/)|commit\/|compare\/)/;
   // File types where a leading "#", "*" or "--" is content, not a comment.
   const PROSE_FILE = /\.(md|mdx|markdown|txt|rst|adoc|csv|tsv)$/i;
   // Used only when GitHub did not syntax-highlight the line (big or unknown files).
@@ -19,6 +20,11 @@
 
   function isDiffPage() {
     return DIFF_PAGE.test(location.pathname);
+  }
+
+  // Only offer the toggle once the page actually shows diff code.
+  function isApplicable() {
+    return isDiffPage() && !!document.querySelector('td.blob-code:not(.blob-code-hunk), td.diff-text-cell');
   }
 
   // Classic view: td.blob-code. New React view (/pull/N/changes): td.diff-text-cell.
@@ -163,7 +169,7 @@
       button.addEventListener('click', () => setEnabled(!enabled));
     }
     if (!button.isConnected) document.body.append(button);
-    button.hidden = !isDiffPage();
+    button.hidden = !isApplicable();
     button.setAttribute('aria-pressed', String(enabled));
     const folds = document.querySelectorAll(`tr.${PLACEHOLDER}`).length;
     button.querySelector('.gcc-label').textContent = enabled
@@ -180,7 +186,12 @@
   let pending = new Set();
   let scheduled = false;
   const observer = new MutationObserver((records) => {
-    if (applying || !isDiffPage()) return;
+    if (applying) return;
+    // GitHub switches PR tabs without a page load, so hide the button when leaving the diff.
+    if (!isDiffPage()) {
+      if (button && !button.hidden) updateButton();
+      return;
+    }
     for (const rec of records) {
       const body = rec.target.closest?.('tbody');
       if (body) pending.add(body);
@@ -202,7 +213,7 @@
   });
 
   document.addEventListener('keydown', (e) => {
-    if (!(e.altKey && e.shiftKey && e.code === 'KeyC') || !isDiffPage()) return;
+    if (!(e.altKey && e.shiftKey && e.code === 'KeyC') || !isApplicable()) return;
     if (e.target.closest?.('input, textarea, [contenteditable="true"]')) return;
     e.preventDefault();
     setEnabled(!enabled);

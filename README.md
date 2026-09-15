@@ -33,6 +33,12 @@ It works on pull request **Files changed**, commit pages and compare pages.
   conservative prefix check runs instead: `//`, `/*`, `*`, `*/`, `<!--`, `# `,
   `-- `, `;;`. It's skipped for prose files (`.md`, `.txt`, `.rst`, …).
 
+## Privacy
+
+Comment Fold collects no data. It makes no network requests, and the only
+thing it stores is your on/off setting, in the browser's local extension
+storage. It runs only on github.com.
+
 ## Known limits
 
 - Python docstrings are highlighted as strings, not comments, so they stay

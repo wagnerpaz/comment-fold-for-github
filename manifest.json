@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Comment Fold for GitHub",
   "short_name": "Comment Fold",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Fold away code comments in GitHub pull requests, commits and compares, so you can review just the code.",
   "icons": {
     "16": "icons/icon16.png",

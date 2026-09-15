@@ -7,12 +7,6 @@ comment-only lines in GitHub diffs so you can review just the code.
 
 It works on pull request **Files changed**, commit pages and compare pages.
 
-## Why an extension and not a GitHub App
-
-GitHub Apps only talk to the REST/GraphQL API. They can't change how
-github.com draws a page. Hiding lines in the review UI needs code running in
-the page, and that's what a content script is.
-
 ## Install (unpacked)
 
 1. Open `chrome://extensions` (or `edge://extensions`).

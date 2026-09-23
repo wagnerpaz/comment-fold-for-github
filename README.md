@@ -7,7 +7,16 @@ comment-only lines in GitHub diffs so you can review just the code.
 
 It works on pull request **Files changed**, commit pages and compare pages.
 
-## Install (unpacked)
+**[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/comment-fold-for-github/bmcdgppnhdhbalkhalchilnkenbpljnc)**
+
+## Install
+
+### From the Chrome Web Store
+
+Open the [store page](https://chromewebstore.google.com/detail/comment-fold-for-github/bmcdgppnhdhbalkhalchilnkenbpljnc) and click **Add to Chrome**. It also
+installs in Edge and Brave from the same page.
+
+### Unpacked (for development)
 
 1. Open `chrome://extensions` (or `edge://extensions`).
 2. Turn on **Developer mode**.
